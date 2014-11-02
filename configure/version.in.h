@@ -1,0 +1,8 @@
+
+#ifndef CONFIGURE_VERSION_H
+#define CONFIGURE_VERSION_H
+
+static unsigned int LIBRARY_VERSION=@LIBRARY_VERSION@;
+
+#endif /* CONFIGURE_VERSION_H */
+
