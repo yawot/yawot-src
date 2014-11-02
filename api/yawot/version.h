@@ -14,6 +14,15 @@ namespace yawot
  */
 unsigned int version();
 
+/**
+ * Return the version of the *library* as a
+ * string.  The format is "X.Y.Z"
+ * XX - major version
+ * YY - minor version
+ * ZZ - patch version
+ */
+const std::string versionString();
+
 }
 
 #endif /* YAWOT_VERSION_H */
