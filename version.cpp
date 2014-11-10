@@ -1,4 +1,6 @@
 
+#include "yawot/version.h"
+
 #include "configure/version.h"
 
 namespace yawot

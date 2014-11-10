@@ -41,7 +41,8 @@ endif()
 
 # Add the configure version in to the list of source files so it will showup in IDEs.
 set(VERSION_CONFIG_IN "${PROJECT_SOURCE_DIR}/configure/version.in.h")
-set(HEADER_FILES ${PROJECT_SOURCE_DIR}/api/yawot/version.h ${VERSION_CONFIG_IN})
+set(LIBRARY_SHARED_OBJECT_HDR "${PROJECT_SOURCE_DIR}/api/yawot/yawotsharedobject.h" )
+set(HEADER_FILES ${PROJECT_SOURCE_DIR}/api/yawot/version.h ${LIBRARY_SHARED_OBJECT_HDR} ${VERSION_CONFIG_IN})
 set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/version.cpp)
 
 include_directories("${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}/api")
@@ -57,11 +58,18 @@ configure_file (
 if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -fvisibility=hidden")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/yawot.version")
 endif()
 
 # Create the library target
 set(LIBRARY_NAME yawot)
 add_library(${LIBRARY_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} ${VERSION_CONFIG})
+
+set_target_properties(${LIBRARY_NAME} PROPERTIES
+  COMPILE_DEFINITIONS "YAWOT_EXPORTS;YAWOT_SHARED_OBJECT")
+
+# Not sure why this isn't working, having to use global definitions instead.
+set_source_files_properties("${LIBRARY_SHARED_OBJECT_HDR}" PROPERTIES COMPILE_DEFINITIONS "YAWOT_SHARED_OBJECT;slefjselifjsejfsilefsefs")
 
 if(YAWOT_ENABLE_COVERAGE)
   set(YAWOT_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build: Debug, Release etc." FORCE)
