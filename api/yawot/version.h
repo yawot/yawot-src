@@ -2,6 +2,10 @@
 #ifndef YAWOT_VERSION_H
 #define YAWOT_VERSION_H
 
+#include <string>
+
+#include "yawot/yawotsharedobject.h"
+
 namespace yawot
 {
 
@@ -12,7 +16,7 @@ namespace yawot
  * YY - minor version
  * ZZ - patch version
  */
-unsigned int version();
+YAWOT_API unsigned int version();
 
 /**
  * Return the version of the *library* as a
@@ -21,7 +25,7 @@ unsigned int version();
  * YY - minor version
  * ZZ - patch version
  */
-const std::string versionString();
+YAWOT_API const std::string versionString();
 
 }
 
